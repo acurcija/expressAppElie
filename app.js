@@ -5,6 +5,8 @@ var app = express ();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var knex = require('./db/knex');
+var methodOverride = require('method-override');
+//require ('locus');
 
 // middleware - tools to intercept the command that converts into express
 // express is minimalist aka - more flexibility for structuring 
@@ -15,6 +17,7 @@ var knex = require('./db/knex');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(morgan('tiny'));
+app.use(methodOverride('_method'));
 
 app.get('/students', function(req,res){
 	knex('students').then(function(students){
@@ -28,24 +31,6 @@ app.get('/students/new', function(req,res){
 		res.render('new');
 	});
 
-
-// the colon makes it so the id is a parameter in the url
-app.get('/students/:id/edit', function(req, res){
-	// find a student
-	knex('students').where({id: ''}).then(function(students){
-
-	knex('students').where({id: ''}).update(req.body).then(function(students){
-
-	// render 'edit' and pass into your ejs file
-	res.redirect('/students');
-	//the student that you have found
-	});
-});
-
-// app.put('/students/:id', function(){
-
-// })
-
 app.post('/students', function(req,res){
 	// knex ('student').insert({name: req.body.name})
 	knex('students').insert(req.body).then(function(){
@@ -53,11 +38,34 @@ app.post('/students', function(req,res){
 	})
 })
 
+// the colon makes it so the id is a parameter in the url
+app.get('/students/:id/edit', function(req, res){
+	// find a student
+	var id = req.params.id;
+	knex('students').where({id: id}).first().then(function(student){
+		res.render('edit', {student:student});
+	// render 'edit' and pass into your ejs file
+	//the student that you have found
+	});
+});
+
+// put should be used to edit - correct HTTP verb
+app.put('/students/:id', function(req, res){
+	// use knex to update the student
+	knex('students').where({id: req.params.id}).first().update(req.body).then(function(){
+		res.redirect('/students');
+	});
+}); 
+
+	//eval(locus)
+app.delete('/students/:id', function(req, res){
+
+	knex('students').where({id:req.params.id}).del().then(function(){
+		res.redirect('/students');
+	});
+});
 
 
 app.listen(3000, function(){
 	console.log('listening 3000...');
 })
-
-
-

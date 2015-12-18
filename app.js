@@ -23,17 +23,17 @@ app.get('/students', function(req,res){
 	});
 });
 
-// app.get('/students/new', function(req,res){
-// 	// studentsInEjs:studentsFromDBthe values in the object are named that way for explanation only v
-// 		res.render('new');
-// 	});
+app.get('/students/new', function(req,res){
+	// studentsInEjs:studentsFromDBthe values in the object are named that way for explanation only v
+		res.render('new');
+	});
 
-// app.post('/students', function(req,res){
-// 	// knex ('student').insert({name: req.body.name})
-// 	knex('students').insert(req.body).then(function(){
-// 		res.redirect('/students');
-// 	})
-// })
+app.post('/students', function(req,res){
+	// knex ('student').insert({name: req.body.name})
+	knex('students').insert(req.body).then(function(){
+		res.redirect('/students');
+	})
+})
 
 
 

@@ -1,0 +1,23 @@
+
+
+<h1>See all the students!</h1>
+
+<!-- this corresponds to the app.get function in app.js -->
+<!-- each student is an object with two properties -->
+<% students.forEach(function(student){ %>
+
+	<p>
+		<%= student.name %>
+	</p>
+
+	<% }) %>
+
+	<form action='/students' method='post'>
+		 First name:<br>
+		 <input type="text" name="firstname">
+		 <br><br>
+	  	<input type="submit" value="Submit">
+	</form>
+
+
+

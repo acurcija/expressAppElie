@@ -28,6 +28,24 @@ app.get('/students/new', function(req,res){
 		res.render('new');
 	});
 
+
+// the colon makes it so the id is a parameter in the url
+app.get('/students/:id/edit', function(req, res){
+	// find a student
+	knex('students').where({id: ''}).then(function(students){
+
+	knex('students').where({id: ''}).update(req.body).then(function(students){
+
+	// render 'edit' and pass into your ejs file
+	res.redirect('/students');
+	//the student that you have found
+	});
+});
+
+// app.put('/students/:id', function(){
+
+// })
+
 app.post('/students', function(req,res){
 	// knex ('student').insert({name: req.body.name})
 	knex('students').insert(req.body).then(function(){

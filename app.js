@@ -35,14 +35,13 @@ app.post('/students', function(req,res){
 	// knex ('student').insert({name: req.body.name})
 	knex('students').insert(req.body).then(function(){
 		res.redirect('/students');
-	})
-})
+	});
+});
 
 // the colon makes it so the id is a parameter in the url
 app.get('/students/:id/edit', function(req, res){
 	// find a student
-	var id = req.params.id;
-	knex('students').where({id: id}).first().then(function(student){
+	knex('students').where({id: req.params.id}).first().then(function(student){
 		res.render('edit', {student:student});
 	// render 'edit' and pass into your ejs file
 	//the student that you have found
@@ -68,4 +67,4 @@ app.delete('/students/:id', function(req, res){
 
 app.listen(3000, function(){
 	console.log('listening 3000...');
-})
+});

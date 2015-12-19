@@ -1,9 +1,8 @@
 	
-<!-- including the ejs script <%.....%> ensures the right path -->
 	<form action= '/students/<%= student.id%>?_method=PUT' method='POST'>
-		<label for='name'> Edit Name: </label>
-		 <input type="text" name="name" id='name' value='<%= student.name %>'
-	  	<input type="submit" value="Edit the Student">
+		<label for='name'> Name: </label>
+		 <input type='text' name='name' id='name' value='<%= student.name%>'>
+	  	<input type='submit' value='Edit a Student'>
 	</form>
 
 

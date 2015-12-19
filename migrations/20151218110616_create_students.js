@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
   		table.increments();
   		table.string('name');
 
-  	})
+  	});
 };
 
 exports.down = function(knex, Promise) {
